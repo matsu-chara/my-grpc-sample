@@ -64,29 +64,29 @@ Vagrant.configure(2) do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
-    # # sbt
-    # cd ~
-    # echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
-    # sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
-    # sudo apt-get update
-    # sudo apt-get -y install sbt
-    # cd /vagrant/grpc-scala
-    # sbt update
-    #
-    # # php
-    # cd ~
-    # sudo apt-get -y install php5 php5-dev php-pear
-    # curl https://phar.phpunit.de/phpunit.phar -o phpunit.phar
-    # chmod +x phpunit.phar
-    # sudo mv phpunit.phar /usr/local/bin/phpunit
-    # echo "deb http://http.debian.net/debian jessie-backports main" | sudo tee -a /etc/apt/sources.list
-    # sudo apt-get update
-    # sudo apt-get -y --force-yes install libgrpc-dev
-    # sudo apt-get -y install nginx php5-fpm
-    # echo "/etc/php5/fpm/php.ini" | sudo tee -a /etc/php5/fpm/php.ini
-    #
+    # sbt
+    cd ~
+    echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
+    sudo apt-get update
+    sudo apt-get -y install sbt
+    cd /vagrant/grpc-scala
+    sbt update
+
+    # php
+    cd ~
+    sudo apt-get -y install php5 php5-dev php-pear
+    curl https://phar.phpunit.de/phpunit.phar -o phpunit.phar
+    chmod +x phpunit.phar
+    sudo mv phpunit.phar /usr/local/bin/phpunit
+    echo "deb http://http.debian.net/debian jessie-backports main" | sudo tee -a /etc/apt/sources.list
+    sudo apt-get update
+    sudo apt-get -y --force-yes install libgrpc-dev
+    sudo apt-get -y install nginx php5-fpm
+    echo "/etc/php5/fpm/php.ini" | sudo tee -a /etc/php5/fpm/php.ini
+
     sudo sed -i '37a\\\tlocation ~ \.php$ {\\n\\t\\tinclude snippets/fastcgi-php.conf;\\n\\t\\tfastcgi_pass unix:/var/run/php5-fpm.sock;\\n\\t}' /etc/nginx/sites-available/default
-    # sudo service nginx restart
-    # sudo service php5-fpm restart
+    sudo service nginx restart
+    sudo service php5-fpm restart
   SHELL
 end
