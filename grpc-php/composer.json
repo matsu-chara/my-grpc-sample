@@ -1,0 +1,6 @@
+{
+    "require": {
+        "google/auth": "dev-master",
+        "grpc/grpc": "dev-release-0_12"
+    }
+}
