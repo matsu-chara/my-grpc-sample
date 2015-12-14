@@ -4,9 +4,61 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ce70bb107d4d24ce947da93f970378d8",
-    "content-hash": "7f7aecf64801b18b381638b38a70b1a2",
+    "hash": "c7c1fa0e1d4de395438feb20c0339104",
+    "content-hash": "e7b066cbd1a7814d945b74452156a430",
     "packages": [
+        {
+            "name": "datto/protobuf-php",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/datto/Protobuf-PHP.git",
+                "reference": "3a8578ebe7c4e44de15e4603f2f0b91aa85cc57b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/datto/Protobuf-PHP/zipball/3a8578ebe7c4e44de15e4603f2f0b91aa85cc57b",
+                "reference": "3a8578ebe7c4e44de15e4603f2f0b91aa85cc57b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "bin": [
+                "protoc-gen-php.bat",
+                "protoc-gen-php.php"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "DrSlump": "library/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Iván -DrSlump- Montes",
+                    "email": "drslump@pollinimini.net",
+                    "homepage": "https://github.com/drslump/Protobuf-PHP"
+                }
+            ],
+            "description": "PHP implementation of Google's Protocol Buffers",
+            "homepage": "https://github.com/datto/Protobuf-PHP",
+            "keywords": [
+                "protobuf",
+                "protocol buffer",
+                "serializing"
+            ],
+            "time": "2014-04-16 20:10:29"
+        },
         {
             "name": "firebase/php-jwt",
             "version": "v3.0.0",
@@ -339,7 +391,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "google/auth": 20,
-        "grpc/grpc": 20
+        "grpc/grpc": 20,
+        "datto/protobuf-php": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

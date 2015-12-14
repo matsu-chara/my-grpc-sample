@@ -1,5 +1,7 @@
 grpcの練習
 
+# scala編
+
 streamを中心にやる。
 
 ```bash
@@ -25,6 +27,8 @@ sbt runMain math.MathWorldClient
 を扱っている。
 
 
-# todo
+# PHP編
 
-grpc-phpとの通信
+```bash
+protoc --plugin=protoc-gen-php.php --php_out=./src ./src/protobuf/hello_world.proto
+```
