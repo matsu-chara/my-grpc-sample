@@ -75,7 +75,16 @@ Vagrant.configure(2) do |config|
     cd ~
 
     # php
+    ## install PHP
+    sudo apt-get -y install php5 php5-dev php-pear
+    curl -sS https://getcomposer.org/installer | php
+    sudo mv composer.phar /usr/local/bin/composer
+    curl https://phar.phpunit.de/phpunit.phar -o phpunit.phar
+    chmod +x phpunit.phar
+    sudo mv phpunit.phar /usr/local/bin/phpunit
+
     ## install protoc
+    sudo apt-get -y install git
     git clone https://github.com/grpc/grpc
     cd grpc
     git submodule update --init --recursive
@@ -88,14 +97,6 @@ Vagrant.configure(2) do |config|
     sudo make install
     sudo ldconfig
     cd ~
-
-    ## install PHP
-    sudo apt-get -y install php5 php5-dev php-pear git
-    curl -sS https://getcomposer.org/installer | php
-    sudo mv composer.phar /usr/local/bin/composer
-    curl https://phar.phpunit.de/phpunit.phar -o phpunit.phar
-    chmod +x phpunit.phar
-    sudo mv phpunit.phar /usr/local/bin/phpunit
 
     ## install Protobuf-PHP
     sudo pear channel-discover pear.pollinimini.net
@@ -118,6 +119,6 @@ Vagrant.configure(2) do |config|
 
     ## init project
     cd /vagrant/grpc-php
-    composer install
+    composer update
   SHELL
 end
