@@ -32,3 +32,9 @@ sbt runMain math.MathWorldClient
 ```bash
 protoc --plugin=protoc-gen-php.php --php_out=./src ./src/protobuf/hello_world.proto
 ```
+
+# todo
+
+今のところprotobufファイルをそれぞれコピーして使っているが、
+sbtの設定を書けば共有は可能なので暇だったらやる
+
