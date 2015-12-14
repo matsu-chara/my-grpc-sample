@@ -64,7 +64,7 @@ Vagrant.configure(2) do |config|
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
-    # sbt
+    # scala
     cd ~
     echo "deb https://dl.bintray.com/sbt/debian /" | sudo tee -a /etc/apt/sources.list.d/sbt.list
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 642AC823
@@ -72,31 +72,47 @@ Vagrant.configure(2) do |config|
     sudo apt-get -y install sbt
     cd /vagrant/grpc-scala
     sbt update
+    cd ~
 
     # php
-    cd ~
-    sudo apt-get -y install php5 php5-dev php-pear
-    curl -sS https://getcomposer.org/installer | php
-    sudo mv composer.phar /usr/local/bin/
-
-    git clone https://github.com/google/protobuf
-    cd protobuf
-    sudo apt-get intall unzip
+    ## install protoc
+    git clone https://github.com/grpc/grpc
+    cd grpc
+    git submodule update --init --recursive
+    cd third_party/protobuf
+    sudo apt-get install -y unzip
     ./autogen.sh
     ./configure
     make
     make check
     sudo make install
+    sudo ldconfig
+    cd ~
 
+    ## install PHP
+    sudo apt-get -y install php5 php5-dev php-pear git
+    curl -sS https://getcomposer.org/installer | php
+    sudo mv composer.phar /usr/local/bin/composer
+    curl https://phar.phpunit.de/phpunit.phar -o phpunit.phar
+    chmod +x phpunit.phar
+    sudo mv phpunit.phar /usr/local/bin/phpunit
+
+    ## install Protobuf-PHP
+    sudo pear channel-discover pear.pollinimini.net
+    sudo pear install drslump/Protobuf-beta
+
+    ## install grpc-php
     echo "deb http://http.debian.net/debian jessie-backports main" | sudo tee -a /etc/apt/sources.list
     sudo apt-get update
     sudo apt-get -y --force-yes install libgrpc-dev
     sudo pecl install grpc-beta
-    sudo apt-get -y install nginx php5-fpm
 
+    ## install php5-fpm with nginx
+    sudo apt-get -y install nginx php5-fpm
     echo "extension=grpc.so" | sudo tee -a /etc/php5/fpm/php.ini
     sudo sed -i '37a\\\tlocation ~ \.php$ {\\n\\t\\tinclude snippets/fastcgi-php.conf;\\n\\t\\tfastcgi_pass unix:/var/run/php5-fpm.sock;\\n\\t}' /etc/nginx/sites-available/default
 
+    ## restart services
     sudo service nginx restart
     sudo service php5-fpm restart
   SHELL
