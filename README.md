@@ -26,15 +26,18 @@ sbt runMain math.MathWorldClient
 
 を扱っている。
 
-
 # PHP編
 
 ```bash
 protoc --plugin=protoc-gen-php.php --php_out=./src ./src/protobuf/hello_world.proto
 ```
 
-# todo
+# memo
+
+sbtでprotoc-jarが入っていて、phpのためにprotocも入れているので二度手間だが、
+各々の言語で独立して後でそのままコピペすれば動くような環境を目指しているので
+そのままにする。
 
 今のところprotobufファイルをそれぞれコピーして使っているが、
-sbtの設定を書けば共有は可能なので暇だったらやる
-
+これも各々の言語で独立して動かしたい気持ちによるものなので
+そのままにする。

@@ -115,5 +115,9 @@ Vagrant.configure(2) do |config|
     ## restart services
     sudo service nginx restart
     sudo service php5-fpm restart
+
+    ## init project
+    cd /vagrant/grpc-php
+    composer install
   SHELL
 end
