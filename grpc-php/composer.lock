@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c7c1fa0e1d4de395438feb20c0339104",
-    "content-hash": "e7b066cbd1a7814d945b74452156a430",
+    "hash": "d71fe1c127470f3640d4909172358f4e",
+    "content-hash": "b15088499ecef7c2f4b7fdd5f490acfc",
     "packages": [
         {
             "name": "datto/protobuf-php",
@@ -342,6 +342,114 @@
             "time": "2014-10-12 19:18:40"
         },
         {
+            "name": "pear/console_commandline",
+            "version": "dev-trunk",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pear/Console_CommandLine.git",
+                "reference": "ea39c3084a33e6f9cd38d60cbf5177bedeb4ce00"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pear/Console_CommandLine/zipball/ea39c3084a33e6f9cd38d60cbf5177bedeb4ce00",
+                "reference": "ea39c3084a33e6f9cd38d60cbf5177bedeb4ce00",
+                "shasum": ""
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-xml": "*",
+                "pear/pear_exception": "^1.0.0",
+                "php": ">=5.1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Console": "./"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                ""
+            ],
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Richard Quadling",
+                    "email": "rquadling@gmail.com"
+                },
+                {
+                    "name": "David Jean Louis",
+                    "email": "izimobil@gmail.com"
+                }
+            ],
+            "description": "A full featured command line options and arguments parser.",
+            "homepage": "https://github.com/pear/Console_CommandLine",
+            "keywords": [
+                "console"
+            ],
+            "time": "2015-12-11 07:22:20"
+        },
+        {
+            "name": "pear/pear_exception",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pear/PEAR_Exception.git",
+                "reference": "8c18719fdae000b690e3912be401c76e406dd13b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pear/PEAR_Exception/zipball/8c18719fdae000b690e3912be401c76e406dd13b",
+                "reference": "8c18719fdae000b690e3912be401c76e406dd13b",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=4.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "type": "class",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "PEAR": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "include-path": [
+                "."
+            ],
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Helgi Thormar",
+                    "email": "dufuz@php.net"
+                },
+                {
+                    "name": "Greg Beaver",
+                    "email": "cellog@php.net"
+                }
+            ],
+            "description": "The PEAR Exception base class.",
+            "homepage": "https://github.com/pear/PEAR_Exception",
+            "keywords": [
+                "exception"
+            ],
+            "time": "2015-02-10 20:07:52"
+        },
+        {
             "name": "react/promise",
             "version": "v2.2.1",
             "source": {
@@ -392,7 +500,8 @@
     "stability-flags": {
         "google/auth": 20,
         "grpc/grpc": 20,
-        "datto/protobuf-php": 20
+        "datto/protobuf-php": 20,
+        "pear/console_commandline": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

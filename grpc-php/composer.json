@@ -2,6 +2,7 @@
     "require": {
         "google/auth": "dev-master",
         "grpc/grpc": "dev-release-0_12",
-        "datto/protobuf-php": "dev-master"
+        "datto/protobuf-php": "dev-master",
+        "pear/console_commandline": "dev-trunk"
     }
 }
