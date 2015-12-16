@@ -29,11 +29,12 @@ sbt runMain math.MathWorldClient
 # PHP編
 
 ```bash
-protoc --plugin=protoc-gen-php --php_out=./src ./src/protobuf/hello_world.proto
+protoc --plugin=protoc-gen-php.php --php_out=./src ./src/protobuf/hello_world.proto
 ```
 
 datto/Protobuf-PHPはpecl無しでインストールできそうだけど、
 `Pear's Console_CommandLine (for the protoc wrapper tool)` がrequiermentsに入っていて結局pear使う必要がありそうだったのでpear installで入れている。
+解決方法が見つかったらpearなしでやりたい。
 
 google/authはgrpcに必要だがdependencyが解決されなかったので明示的に指定している。
 
