@@ -1,4 +1,2 @@
-logLevel := Level.Warn
-
-addSbtPlugin("com.trueaccord.scalapb" % "sbt-scalapb" % "0.5.18")
-libraryDependencies += "com.github.os72" % "protoc-jar" % "3.0.0-b1"
+addSbtPlugin("com.thesamet" % "sbt-protoc" % "0.99.1")
+libraryDependencies += "com.trueaccord.scalapb" %% "compilerplugin" % "0.5.45"
