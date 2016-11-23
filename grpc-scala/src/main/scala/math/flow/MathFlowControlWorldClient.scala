@@ -41,6 +41,7 @@ class MathFlowControlWorldClient(stub: MathStub) {
       }
 
       override def onReady(): Unit = {
+        // ref https://github.com/grpc/grpc-java/blob/0d694c80ee0075b506e545c5ab1d412104eb6e26/core/src/main/java/io/grpc/internal/AbstractStream2.java#L228-L232
         while (call.isReady) {
           if (dividend < 100) {
             val req = DivArgs(dividend, divisor)
@@ -60,7 +61,7 @@ class MathFlowControlWorldClient(stub: MathStub) {
         i = i + 1
         println(s"onMessage + $i")
         Future {
-          Thread.sleep(2000)
+          Thread.sleep(300)
           call.request(1)
         }(concurrent.ExecutionContext.global)
       }
