@@ -1,8 +1,9 @@
 package math
 
 import _root_.math.math._
+import io.grpc.Server
+import io.grpc.netty.NettyServerBuilder
 import io.grpc.stub.StreamObserver
-import io.grpc.{Server, ServerBuilder}
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -17,10 +18,15 @@ object MathWorldServer {
 }
 
 class MathWorldServer(executionContext: ExecutionContext) { self =>
-  private[this] var server: Server = null
+  private[this] var server: Server = _
 
   private def start(): Unit = {
-    server = ServerBuilder.forPort(MathWorldServer.port).addService(MathGrpc.bindService(new MathImpl, executionContext)).build.start
+    // if use NettyServerBuilder instead of ServerBuilder, we can setMaxMessageSize or some options
+    server = NettyServerBuilder
+      .forPort(MathWorldServer.port)
+      .maxMessageSize(1024 * 1024 * 1024)
+      .addService(MathGrpc.bindService(new MathImpl, executionContext))
+      .build.start
 
     Runtime.getRuntime.addShutdownHook(new Thread() {
       override def run(): Unit = {
@@ -64,13 +70,16 @@ class MathWorldServer(executionContext: ExecutionContext) { self =>
 
     class DivStreamObserver(responseObserver: StreamObserver[DivReply]) extends StreamObserver[DivArgs] {
       override def onError(t: Throwable): Unit = t.printStackTrace()
+
       override def onCompleted(): Unit = {
         responseObserver.onCompleted()
         println("divMany finished")
       }
+
       override def onNext(value: DivArgs): Unit = {
-        println(value)
-        responseObserver.onNext(DivReply(value.dividend / value.divisor, value.dividend % value.divisor))
+        val reply = DivReply(value.dividend / value.divisor, value.dividend % value.divisor)
+        responseObserver.onNext(reply)
+        println(s"sent $reply")
       }
     }
 
@@ -78,11 +87,13 @@ class MathWorldServer(executionContext: ExecutionContext) { self =>
       var sum = 0L
 
       override def onError(t: Throwable): Unit = t.printStackTrace()
+
       override def onCompleted(): Unit = {
         println("sum finished")
         responseObserver.onNext(Num(sum))
         responseObserver.onCompleted()
       }
+
       override def onNext(value: Num): Unit = {
         println(value)
         sum = sum + value.num

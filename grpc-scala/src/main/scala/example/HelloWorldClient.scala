@@ -2,7 +2,7 @@ package example
 
 import java.util.concurrent.TimeUnit
 
-import example.hello_world.{HelloRequest, GreeterGrpc}
+import example.hello_world.{GreeterGrpc, HelloRequest}
 import example.hello_world.GreeterGrpc.GreeterBlockingStub
 import io.grpc.{ManagedChannel, ManagedChannelBuilder}
 
@@ -27,9 +27,9 @@ object HelloWorldClient {
 }
 
 class HelloWorldClient private(
-  private val channel: ManagedChannel,
-  private val blockingStub: GreeterBlockingStub
-) {
+                                private val channel: ManagedChannel,
+                                private val blockingStub: GreeterBlockingStub
+                              ) {
   def shutdown(): Unit = {
     channel.shutdown.awaitTermination(5, TimeUnit.SECONDS)
   }
