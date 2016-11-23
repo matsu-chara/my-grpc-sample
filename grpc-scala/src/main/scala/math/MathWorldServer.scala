@@ -52,23 +52,7 @@ class MathWorldServer(executionContext: ExecutionContext) { self =>
       Future.successful(DivReply(request.dividend / request.divisor, request.dividend % request.divisor))
     }
 
-    override def divMany(responseObserver: StreamObserver[DivReply]): StreamObserver[DivArgs] = new DivStreamObserver(responseObserver)
-
-    override def fib(request: FibArgs, responseObserver: StreamObserver[Num]): Unit = {
-      var x_n0 = 0
-      var x_n1 = 1
-      while (x_n0 < request.limit) {
-        responseObserver.onNext(Num(x_n0))
-        var x_n2 = x_n0 + x_n1
-        x_n0 = x_n1
-        x_n1 = x_n2
-      }
-      responseObserver.onCompleted()
-    }
-
-    override def sum(responseObserver: StreamObserver[Num]): StreamObserver[Num] = new SumStreamObserver(responseObserver)
-
-    class DivStreamObserver(responseObserver: StreamObserver[DivReply]) extends StreamObserver[DivArgs] {
+    override def divMany(responseObserver: StreamObserver[DivReply]): StreamObserver[DivArgs] = new StreamObserver[DivArgs] {
       override def onError(t: Throwable): Unit = t.printStackTrace()
 
       override def onCompleted(): Unit = {
@@ -83,7 +67,19 @@ class MathWorldServer(executionContext: ExecutionContext) { self =>
       }
     }
 
-    class SumStreamObserver(responseObserver: StreamObserver[Num]) extends StreamObserver[Num] {
+    override def fib(request: FibArgs, responseObserver: StreamObserver[Num]): Unit = {
+      var x_n0 = 0
+      var x_n1 = 1
+      while (x_n0 < request.limit) {
+        responseObserver.onNext(Num(x_n0))
+        var x_n2 = x_n0 + x_n1
+        x_n0 = x_n1
+        x_n1 = x_n2
+      }
+      responseObserver.onCompleted()
+    }
+
+    override def sum(responseObserver: StreamObserver[Num]): StreamObserver[Num] = new StreamObserver[Num] {
       var sum = 0L
 
       override def onError(t: Throwable): Unit = t.printStackTrace()
