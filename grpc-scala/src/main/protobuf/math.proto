@@ -10,6 +10,7 @@ message DivArgs {
 message DivReply {
     int64 quotient = 1;
     int64 remainder = 2;
+    string mofu = 3;
 }
 
 message FibArgs {

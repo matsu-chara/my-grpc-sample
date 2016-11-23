@@ -1,6 +1,7 @@
 package math.flow
 
 import java.util.concurrent.TimeUnit
+import java.util.concurrent.locks.ReentrantLock
 
 import _root_.math.math.MathGrpc.MathStub
 import _root_.math.math._
@@ -33,8 +34,8 @@ class MathFlowControlWorldClient(stub: MathStub) {
     // stub.divMany() Flow-controll version. see http://www.grpc.io/grpc-java/javadoc/
     val call = stub.getChannel.newCall(MathGrpc.METHOD_DIV_MANY, CallOptions.DEFAULT)
     val listener = new Listener[DivReply] {
-      private var dividend = 1
-      private var divisor = 3
+      private var dividend = 3
+      private var divisor = 1
 
       override def onHeaders(headers: Metadata): Unit = {
         println(s"onHeaders ${headers.toString}")
@@ -43,11 +44,11 @@ class MathFlowControlWorldClient(stub: MathStub) {
       override def onReady(): Unit = {
         // ref https://github.com/grpc/grpc-java/blob/0d694c80ee0075b506e545c5ab1d412104eb6e26/core/src/main/java/io/grpc/internal/AbstractStream2.java#L228-L232
         while (call.isReady) {
-          if (dividend < 100) {
+          if (divisor < 200) {
             val req = DivArgs(dividend, divisor)
             call.sendMessage(req)
-            dividend += 1
-            divisor += 2
+            dividend += 2
+            divisor += 1
           } else {
             println(s"onReady closing")
             call.halfClose()
